@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {MainMenuComponent} from './main-menu/main-menu.component';
+import {CurrencyListComponent} from './currency-list/currency-list.component';
 
 const routes: Routes = [
-  { path: '', component: MainMenuComponent }
+  { path: '', component: CurrencyListComponent }
 ];
 
 @NgModule({

@@ -6,12 +6,14 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { AppComponent } from './app.component';
 import {AppRoutingModule} from './app-routing.module';
 import { MainMenuComponent } from './main-menu/main-menu.component';
+import { CurrencyListComponent } from './currency-list/currency-list.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    MainMenuComponent
+    MainMenuComponent,
+    CurrencyListComponent
   ],
   imports: [
     BrowserModule,
