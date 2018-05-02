@@ -1,13 +1,17 @@
+import { Action } from '@ngrx/store';
+import Currency from '../../models/Currency';
+
 export const GET_CURRENCY_LIST_ACT = 'GET_CURRENCY_LIST_ACT';
 export const APPEND_TO_CURRENCY_LIST_ACT = 'APPEND_TO_CURRENCY_LIST_ACT';
 export const GET_CURRENCY_LIST_BINANCE_ACT = 'GET_CURRENCY_LIST_BINANCE_ACT';
 
-export class GetCurrencyListAct {
+export class GetCurrencyListAct implements Action {
   readonly type = GET_CURRENCY_LIST_ACT;
+  constructor(public payload: Currency[]) {}
 }
 
-export class AppendToCurrencyListAct {
+export class AppendToCurrencyListAct implements Action {
   readonly type = APPEND_TO_CURRENCY_LIST_ACT;
 }
 
-export type Action = GetCurrencyListAct | AppendToCurrencyListAct;
+export type Actions = GetCurrencyListAct | AppendToCurrencyListAct;

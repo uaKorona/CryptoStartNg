@@ -1,4 +1,4 @@
-import Currency from '../models/Currency';
+import Currency from '../../models/Currency';
 
 export interface State {
   list: Currency[];
