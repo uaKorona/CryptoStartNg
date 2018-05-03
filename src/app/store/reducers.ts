@@ -22,7 +22,10 @@ export function logger(reducer: ActionReducer<State>):
 
 export const metaReducers: MetaReducer<State>[] = [logger];
 
+
 /** SELECTORS */
 
 export const getCurrencyListState =
   createFeatureSelector<fromCurrencyListStore.State>('currencyList');
+
+export const getCurrencyList = createSelector(getCurrencyListState, fromCurrencyListStore.getList);

@@ -12,6 +12,7 @@ export class GetCurrencyListAct implements Action {
 
 export class AppendToCurrencyListAct implements Action {
   readonly type = APPEND_TO_CURRENCY_LIST_ACT;
+  constructor(public payload: Currency[]) {}
 }
 
 export type Actions = GetCurrencyListAct | AppendToCurrencyListAct;

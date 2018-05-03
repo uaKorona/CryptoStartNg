@@ -1,3 +1,7 @@
 <p>
   currency-list works!
 </p>
+
+<div *ngFor="let item of currencyList$ | async">
+    {{item.name}}
+</div>
