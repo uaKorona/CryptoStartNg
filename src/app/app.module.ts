@@ -10,6 +10,8 @@ import {AppComponent} from './app.component';
 import {AppRoutingModule} from './app-routing.module';
 import {MainMenuComponent} from './main-menu/main-menu.component';
 import {CurrencyListComponent} from './currency-list/currency-list.component';
+import {CoreModule} from './core/core.module';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -21,6 +23,8 @@ import {CurrencyListComponent} from './currency-list/currency-list.component';
     BrowserModule,
     FormsModule,
     NgbModule.forRoot(),
+    HttpClientModule,
+    CoreModule,
     AppRoutingModule,
     StoreModule.forRoot(reducers, {metaReducers})
   ],

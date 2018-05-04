@@ -1,13 +1,24 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {Routes, RouterModule} from '@angular/router';
 import {CurrencyListComponent} from './currency-list/currency-list.component';
+import {CurrencyListResolverService} from './currency-list/currency-list-resolver.service';
 
 const routes: Routes = [
-  { path: '', component: CurrencyListComponent }
+  {
+    path: '',
+    component: CurrencyListComponent,
+    resolve: {
+      currencyList: CurrencyListResolverService
+    }
+  }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { enableTracing: false })],
-  exports: [RouterModule]
+  imports: [RouterModule.forRoot(routes, {enableTracing: false})],
+  exports: [RouterModule],
+  providers: [
+    CurrencyListResolverService
+  ]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}
