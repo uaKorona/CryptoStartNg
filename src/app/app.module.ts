@@ -12,6 +12,8 @@ import {MainMenuComponent} from './main-menu/main-menu.component';
 import {CurrencyListComponent} from './currency-list/currency-list.component';
 import {CoreModule} from './core/core.module';
 import {HttpClientModule} from '@angular/common/http';
+import {EffectsModule} from '@ngrx/effects';
+import {CurrencyListEffects} from './store/currencyList/currencyList.effects';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,8 @@ import {HttpClientModule} from '@angular/common/http';
     HttpClientModule,
     CoreModule,
     AppRoutingModule,
-    StoreModule.forRoot(reducers, {metaReducers})
+    StoreModule.forRoot(reducers, {metaReducers}),
+    EffectsModule.forRoot([CurrencyListEffects])
   ],
   providers: [],
   bootstrap: [AppComponent]
