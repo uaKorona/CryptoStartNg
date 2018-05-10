@@ -21,12 +21,12 @@ export class CurrencyListResolverService implements Resolve<Action> {
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Action> {
     const url = this.apiService.getCoinmarketUrl();
-    this.store.dispatch(new CurrencyListActions.LoadCurrencyListAct(url));
+
+    this.store.dispatch(new CurrencyListActions.LoadCurrencyList(url));
 
     return this.action$
-      .ofType(CurrencyListActions.GET_CURRENCY_LIST_ACT)
+      .ofType(CurrencyListActions.LOAD_CURRENCY_LIST_SUCCESS)
       .take(1);
-
   }
 
 }

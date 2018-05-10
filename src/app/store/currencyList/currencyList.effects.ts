@@ -19,12 +19,12 @@ export class CurrencyListEffects {
   @Effect()
   loadCurrencyList$ = this.actions$
     .pipe(
-      ofType(CurrencyListActions.LOAD_CURRENCY_LIST_ACT),
-      concatMap((action: CurrencyListActions.LoadCurrencyListAct) =>
+      ofType(CurrencyListActions.LOAD_CURRENCY_LIST),
+      concatMap((action: CurrencyListActions.LoadCurrencyList) =>
         this.apiService.doCoinmarketRequest(action.payload)
           .pipe(
             map((currencyList: Currency[]) =>
-              new CurrencyListActions.GetCurrencyListAct(currencyList)
+              new CurrencyListActions.LoadCurrencyListSuccess(currencyList)
             )
           )
       )

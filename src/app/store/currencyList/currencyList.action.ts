@@ -1,24 +1,24 @@
 import { Action } from '@ngrx/store';
 import Currency from '../../models/Currency';
 
-export const GET_CURRENCY_LIST_ACT = 'GET_CURRENCY_LIST_ACT';
-export const LOAD_CURRENCY_LIST_ACT = 'LOAD_CURRENCY_LIST_ACT';
-export const APPEND_TO_CURRENCY_LIST_ACT = 'APPEND_TO_CURRENCY_LIST_ACT';
-export const GET_CURRENCY_LIST_BINANCE_ACT = 'GET_CURRENCY_LIST_BINANCE_ACT';
+export const LOAD_CURRENCY_LIST = 'LOAD_CURRENCY_LIST';
+export const LOAD_CURRENCY_LIST_SUCCESS = 'LOAD_CURRENCY_LIST_SUCCESS';
+export const APPEND_TO_CURRENCY_LIST = 'APPEND_TO_CURRENCY_LIST';
+export const GET_CURRENCY_LIST_BINANCE = 'GET_CURRENCY_LIST_BINANCE';
 
-export class LoadCurrencyListAct implements Action {
-  readonly type = LOAD_CURRENCY_LIST_ACT;
+export class LoadCurrencyList implements Action {
+  readonly type = LOAD_CURRENCY_LIST;
   constructor(public payload: string) {}
 }
 
-export class GetCurrencyListAct implements Action {
-  readonly type = GET_CURRENCY_LIST_ACT;
+export class LoadCurrencyListSuccess implements Action {
+  readonly type = LOAD_CURRENCY_LIST_SUCCESS;
   constructor(public payload: Currency[]) {}
 }
 
 export class AppendToCurrencyListAct implements Action {
-  readonly type = APPEND_TO_CURRENCY_LIST_ACT;
+  readonly type = APPEND_TO_CURRENCY_LIST;
   constructor(public payload: Currency[]) {}
 }
 
-export type Actions = GetCurrencyListAct | AppendToCurrencyListAct;
+export type Actions = LoadCurrencyListSuccess | AppendToCurrencyListAct;
