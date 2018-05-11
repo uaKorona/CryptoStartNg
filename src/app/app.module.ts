@@ -15,6 +15,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {EffectsModule} from '@ngrx/effects';
 import {CurrencyListEffects} from './store/currencyList/currencyList.effects';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MyMaterialModule} from './my-material.module';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     HttpClientModule,
     CoreModule,
     AppRoutingModule,
+    MyMaterialModule,
     StoreModule.forRoot(reducers, {metaReducers}),
     EffectsModule.forRoot([CurrencyListEffects])
   ],
