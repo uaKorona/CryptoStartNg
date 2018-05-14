@@ -1,10 +1,11 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
-import {catchError} from 'rxjs/operators';
+import {catchError, map} from 'rxjs/operators';
 import 'rxjs/add/observable/throw';
 
 import Currency from '../models/Currency';
+
 
 @Injectable()
 export class ApiService {
@@ -15,7 +16,10 @@ export class ApiService {
   doCoinmarketRequest(url): Observable<Currency[]> {
     return this.http
       .get<Currency[]>(url)
-      .pipe(catchError(error => Observable.throw(error.json())));
+      .pipe(
+        map((items: Currency[]) => items.map(item => new Currency(item))),
+        catchError(error => Observable.throw(error.json()))
+      );
   }
 
   getCoinmarketUrl(start?: string): string {

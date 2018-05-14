@@ -11,6 +11,7 @@ import {MatTableDataSource} from '@angular/material';
   styleUrls: ['./currency-list.component.css']
 })
 export class CurrencyListComponent implements OnInit {
+
   currencyList$: Observable<Currency[]>;
   displayedColumns = [
     'rank',
@@ -39,7 +40,7 @@ export class CurrencyListComponent implements OnInit {
   }
 
   isUserAuthorized(): boolean {
-    return true;
+    return false;
   }
 
   getDisplayedColumns(): string[] {

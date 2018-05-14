@@ -1,0 +1,67 @@
+.grey--text {
+  color: #9e9e9e;
+}
+
+.green--text {
+  color: #4caf50;
+}
+
+.red--text {
+  color: #f44336;
+}
+
+.column {
+  flex: 0 1 auto;
+}
+
+.column--rank {
+  flex-basis: 6% !important;
+}
+
+.column--rank--text {
+  flex-basis: 6% !important;
+}
+
+.column--name {
+  flex-basis: 15% !important;
+}
+
+.column--name--text {
+  flex-basis: 15% !important;
+}
+
+.column--marketCap {
+  flex-basis: 15% !important;
+}
+
+.column--price {
+  flex-basis: 15% !important;
+}
+
+.column--binance {
+  flex-basis: 15% !important;
+}
+
+.column--binance--text {
+  flex-basis: 15% !important;
+}
+
+.column--priceChange {
+  flex-basis: 15% !important;
+}
+
+.column--priceChange--afterBinance {
+  flex-basis: 5% !important;
+}
+
+.column--text {
+  flex-basis: 15% !important;
+}
+
+.text--right {
+  text-align: right;
+}
+
+.text--center {
+  text-align: center;
+}

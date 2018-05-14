@@ -2,41 +2,93 @@
   <mat-table #table [dataSource]="dataSource">
 
     <ng-container matColumnDef="rank">
-      <mat-header-cell *matHeaderCellDef> # </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.rank}} </mat-cell>
+      <mat-header-cell
+        class="column column--rank"
+        *matHeaderCellDef>
+        #
+      </mat-header-cell>
+      <mat-cell
+        class="column column--rank--text"
+        *matCellDef="let element">
+        {{element.rank}}
+      </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="name">
-      <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-      <mat-cell *matCellDef="let element">
-        <span>{{element.name}} / </span>
-        <span>{{element.symbol}}</span>
+      <mat-header-cell
+        class="column column--name"
+        *matHeaderCellDef>
+        Name
+      </mat-header-cell>
+      <mat-cell
+        class="column column--name--text"
+        *matCellDef="let element">
+        {{element.name}}
+        <span class="grey--text"> {{element.symbol}}</span>
       </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="market_cap_usd">
-      <mat-header-cell *matHeaderCellDef> Market Cap </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.market_cap_usd}} </mat-cell>
+      <mat-header-cell
+        class="column column--marketCap text--right"
+        *matHeaderCellDef>
+        Market Cap
+      </mat-header-cell>
+      <mat-cell
+        class="column column--text text--right"
+        *matCellDef="let element">
+        {{element.market_cap_usd | currency }}
+      </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="price_usd">
-      <mat-header-cell *matHeaderCellDef> Price </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.price_usd}} </mat-cell>
+      <mat-header-cell
+        class="column column--price text--right"
+        *matHeaderCellDef>
+        Price
+      </mat-header-cell>
+      <mat-cell
+        class="column column--text text--right"
+        *matCellDef="let element">
+        {{element.price_usd | currency}}
+      </mat-cell>
     </ng-container>
 
-    <ng-container *ngIf="isUserAuthorized()" matColumnDef="isOnBinance">
-      <mat-header-cell *matHeaderCellDef> Binance </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.isOnBinance}} </mat-cell>
+    <ng-container
+      *ngIf="isUserAuthorized()"
+      matColumnDef="isOnBinance">
+      <mat-header-cell
+        class="column column--binance text--center"
+        *matHeaderCellDef>
+        Binance
+      </mat-header-cell>
+      <mat-cell
+        class="column column--binance--text text--center"
+        *matCellDef="let element">
+        {{element.isOnBinance}}
+      </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="percent_change_24h">
-      <mat-header-cell *matHeaderCellDef> Change (24h) </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.percent_change_24h}} </mat-cell>
+      <mat-header-cell
+        class="column column--priceChange text--right"
+        [ngClass]="{'column--priceChange': !isUserAuthorized(), 'column--priceChange--afterBinance': isUserAuthorized()}"
+        *matHeaderCellDef>
+        Change (24h)
+      </mat-header-cell>
+      <mat-cell
+        class="column column--priceChange text--right"
+        [ngClass]="{'column--priceChange': !isUserAuthorized(), 'column--priceChange--afterBinance': isUserAuthorized()}"
+        *matCellDef="let element">
+        <span [ngClass]="{'green--text': element.change24Dynamic, 'red--text': !element.change24Dynamic}">
+          {{element.percent_change_24h}} %
+        </span>
+      </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="imageSrc">
-      <mat-header-cell *matHeaderCellDef> Price (7d) </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.imageSrc}} </mat-cell>
+      <mat-header-cell class="text--right" *matHeaderCellDef> Price (7d)</mat-header-cell>
+      <mat-cell class="text--right" *matCellDef="let element"> {{element.imageSrc}}</mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="getDisplayedColumns()"></mat-header-row>
