@@ -5,6 +5,7 @@ import {catchError, map} from 'rxjs/operators';
 import 'rxjs/add/observable/throw';
 
 import Currency from '../models/Currency';
+import * as currencyListImagesHash from '../store/currencyList/currencyListImagesHash';
 
 
 @Injectable()
@@ -17,7 +18,7 @@ export class ApiService {
     return this.http
       .get<Currency[]>(url)
       .pipe(
-        map((items: Currency[]) => items.map(item => new Currency(item))),
+        map(this.parseCurrencyList()),
         catchError(error => Observable.throw(error.json()))
       );
   }
@@ -30,4 +31,11 @@ export class ApiService {
     return url;
   }
 
+  private parseCurrencyList() {
+    return (items: Currency[]): Currency[] => items.map(item => {
+      const currency = new Currency(item);
+      currency.imageSrc = currencyListImagesHash.getImageUrl(currency.id);
+      return currency;
+    });
+  }
 }

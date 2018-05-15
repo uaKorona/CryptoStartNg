@@ -87,8 +87,23 @@
     </ng-container>
 
     <ng-container matColumnDef="imageSrc">
-      <mat-header-cell class="text--right" *matHeaderCellDef> Price (7d)</mat-header-cell>
-      <mat-cell class="text--right" *matCellDef="let element"> {{element.imageSrc}}</mat-cell>
+      <mat-header-cell
+        class="text--right"
+        *matHeaderCellDef>
+        Price (7d)
+      </mat-header-cell>
+      <mat-cell
+        class="text--right pt--10 pb--10"
+        *matCellDef="let element">
+
+        <img class="img--border"
+             *ngIf="element.imageSrc"
+             [src]="element.imageSrc"
+             [alt]="element.symbol">
+
+        <div *ngIf="!element.imageSrc" class="image--stub"></div>
+
+      </mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="getDisplayedColumns()"></mat-header-row>
