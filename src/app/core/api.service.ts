@@ -23,10 +23,10 @@ export class ApiService {
       );
   }
 
-  getCoinmarketUrl(start?: string): string {
+  getCoinmarketUrl(start?: number): string {
     const url = 'https://api.coinmarketcap.com/v1/ticker/?limit=100';
-    if (start && parseInt(start, 10)) {
-      return url + '&start=' + (+start + 1);
+    if (start) {
+      return url + '&start=' + (start + 1);
     }
     return url;
   }

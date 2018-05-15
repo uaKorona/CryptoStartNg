@@ -1,9 +1,13 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {Store} from '@ngrx/store';
 import * as fromRoot from '../store/reducers';
-import {Observable} from 'rxjs/Observable';
 import Currency from '../models/Currency';
 import {MatPaginator, MatTableDataSource} from '@angular/material';
+import {of} from 'rxjs/observable/of';
+import * as CurrencyListActions from '../store/currencyList/currencyList.action';
+import {ApiService} from '../core/api.service';
+import {delay, tap} from 'rxjs/operators';
+import { empty } from 'rxjs/observable/empty';
 
 @Component({
   selector: 'app-currency-list',
@@ -18,6 +22,7 @@ export class CurrencyListComponent implements OnInit, AfterViewInit {
 
   constructor(
     private store: Store<fromRoot.State>,
+    private apiService: ApiService,
   ) {
 
     this
@@ -26,6 +31,17 @@ export class CurrencyListComponent implements OnInit, AfterViewInit {
       .subscribe((currencyList: Currency[]) =>
         this.dataSource = new MatTableDataSource(currencyList)
       );
+
+    of(null)
+      .pipe(
+        delay(300),
+        tap(() => {
+            const url = this.apiService.getCoinmarketUrl(100);
+            this.store.dispatch(new CurrencyListActions.LoadCurrencyList(url));
+          }
+        )
+      )
+      .subscribe(val => console.log(val));
   }
 
   ngOnInit() {

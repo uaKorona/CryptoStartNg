@@ -21,7 +21,6 @@ export class CurrencyListResolverService implements Resolve<Action> {
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Action> {
     const url = this.apiService.getCoinmarketUrl();
-
     this.store.dispatch(new CurrencyListActions.LoadCurrencyList(url));
 
     return this.action$
