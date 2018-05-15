@@ -109,6 +109,12 @@
     <mat-header-row *matHeaderRowDef="getDisplayedColumns()"></mat-header-row>
     <mat-row *matRowDef="let row; columns: getDisplayedColumns();"></mat-row>
   </mat-table>
+
+  <mat-paginator #paginator
+                 [pageSize]="50"
+                 [pageSizeOptions]="[5, 10, 25, 100]"
+                 [showFirstLastButtons]="true">
+  </mat-paginator>
 </div>
 
 
