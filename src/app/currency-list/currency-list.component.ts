@@ -24,7 +24,7 @@ export class CurrencyListComponent implements OnInit, AfterViewInit {
       .select(fromRoot.getCurrencyList)
       .subscribe((currencyList: Currency[]) => {
           this.dataSource = new MatTableDataSource(currencyList);
-          this.initPaginator(this.paginator);
+          this.initPaginator(this.paginator); /** update paginator every time when new currency list is got */
         }
       );
   }

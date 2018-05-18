@@ -5,7 +5,7 @@ import * as CurrencyListActions from '../currencyList/currencyList.action';
 import {ApiService} from '../../core/api.service';
 import Currency from '../../models/Currency';
 
-import {concatMap, delay, map, switchMap} from 'rxjs/operators';
+import {concatMap, delay, map, mergeMap} from 'rxjs/operators';
 import {forkJoin} from 'rxjs/observable/forkJoin';
 
 
@@ -41,7 +41,7 @@ export class CurrencyListEffects {
           this.dispatchLoadCurrencyList(200),
         )
           .pipe(
-            switchMap(([currencyList1, currencyList2]) =>
+            mergeMap(([currencyList1, currencyList2]) =>
               [
                 new CurrencyListActions.LoadCurrencyListSuccess([...currencyList1, ...currencyList2]),
                 new CurrencyListActions.LazyLoadCurrencyListSuccess()
