@@ -6,7 +6,7 @@ export interface State {
 
 export const initialState: State = {
   list: [
-    new Currency({
+    /*new Currency({
       id: 'bitcoin',
       name: 'Bitcoin',
       symbol: 'BTC',
@@ -21,7 +21,8 @@ export const initialState: State = {
       percent_change_24h: -0.3,
       percent_change_7d: -0.57,
       last_updated: 1472762067
-    })]
+    })*/
+  ]
 };
 
 export const getList = (state: State) => state.list;

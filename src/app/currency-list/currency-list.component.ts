@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import {Store} from '@ngrx/store';
 import * as fromRoot from '../store/reducers';
 import Currency from '../models/Currency';
@@ -7,14 +7,13 @@ import {of} from 'rxjs/observable/of';
 import * as CurrencyListActions from '../store/currencyList/currencyList.action';
 import {ApiService} from '../core/api.service';
 import {delay, tap} from 'rxjs/operators';
-import { empty } from 'rxjs/observable/empty';
 
 @Component({
   selector: 'app-currency-list',
   templateUrl: './currency-list.component.html',
   styleUrls: ['./currency-list.component.css']
 })
-export class CurrencyListComponent implements OnInit, AfterViewInit {
+export class CurrencyListComponent implements AfterViewInit {
 
   dataSource: MatTableDataSource<Currency>;
 
@@ -28,27 +27,24 @@ export class CurrencyListComponent implements OnInit, AfterViewInit {
     this
       .store
       .select(fromRoot.getCurrencyList)
-      .subscribe((currencyList: Currency[]) =>
-        this.dataSource = new MatTableDataSource(currencyList)
+      .subscribe((currencyList: Currency[]) => {
+          this.dataSource = new MatTableDataSource(currencyList);
+          this.initPaginator(this.paginator);
+        }
       );
 
     of(null)
       .pipe(
         delay(300),
-        tap(() => {
-            const url = this.apiService.getCoinmarketUrl(100);
-            this.store.dispatch(new CurrencyListActions.LoadCurrencyList(url));
-          }
-        )
+        tap(() => this.dispatchLoadCurrencyList(100)),
+        delay(300),
+        tap(() => this.dispatchLoadCurrencyList(200))
       )
-      .subscribe(val => console.log(val));
-  }
-
-  ngOnInit() {
+      .subscribe();
   }
 
   ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator;
+    this.initPaginator(this.paginator);
   }
 
   isUserAuthorized(): boolean {
@@ -76,6 +72,17 @@ export class CurrencyListComponent implements OnInit, AfterViewInit {
       'percent_change_24h',
       'imageSrc'
     ];
+  }
+
+  private dispatchLoadCurrencyList(start: number): void {
+    const url = this.apiService.getCoinmarketUrl(start);
+    this.store.dispatch(new CurrencyListActions.LoadCurrencyList(url));
+  }
+
+  private initPaginator(paginator: MatPaginator): void {
+    if (paginator) {
+      this.dataSource.paginator = paginator;
+    }
   }
 
 }

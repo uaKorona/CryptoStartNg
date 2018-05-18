@@ -7,7 +7,7 @@ export function reducer(state = initialState, action: currencyListAction.Actions
       const newList = action.payload;
       return {
         ...state,
-        list: newList
+        list: [...state.list,  ...newList]
       };
     default:
       return state;
