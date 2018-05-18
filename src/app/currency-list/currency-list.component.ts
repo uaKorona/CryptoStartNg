@@ -1,27 +1,22 @@
-import {AfterViewInit, Component, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {Store} from '@ngrx/store';
 import * as fromRoot from '../store/reducers';
 import Currency from '../models/Currency';
 import {MatPaginator, MatTableDataSource} from '@angular/material';
-import {of} from 'rxjs/observable/of';
 import * as CurrencyListActions from '../store/currencyList/currencyList.action';
-import {ApiService} from '../core/api.service';
-import {delay, tap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-currency-list',
   templateUrl: './currency-list.component.html',
   styleUrls: ['./currency-list.component.css']
 })
-export class CurrencyListComponent implements AfterViewInit {
-
+export class CurrencyListComponent implements OnInit, AfterViewInit {
   dataSource: MatTableDataSource<Currency>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
     private store: Store<fromRoot.State>,
-    private apiService: ApiService,
   ) {
 
     this
@@ -32,15 +27,10 @@ export class CurrencyListComponent implements AfterViewInit {
           this.initPaginator(this.paginator);
         }
       );
+  }
 
-    of(null)
-      .pipe(
-        delay(300),
-        tap(() => this.dispatchLoadCurrencyList(100)),
-        delay(300),
-        tap(() => this.dispatchLoadCurrencyList(200))
-      )
-      .subscribe();
+  ngOnInit(): void {
+    this.store.dispatch(new CurrencyListActions.LazyLoadCurrencyList());
   }
 
   ngAfterViewInit(): void {
@@ -72,11 +62,6 @@ export class CurrencyListComponent implements AfterViewInit {
       'percent_change_24h',
       'imageSrc'
     ];
-  }
-
-  private dispatchLoadCurrencyList(start: number): void {
-    const url = this.apiService.getCoinmarketUrl(start);
-    this.store.dispatch(new CurrencyListActions.LoadCurrencyList(url));
   }
 
   private initPaginator(paginator: MatPaginator): void {

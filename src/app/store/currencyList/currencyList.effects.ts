@@ -5,7 +5,8 @@ import * as CurrencyListActions from '../currencyList/currencyList.action';
 import {ApiService} from '../../core/api.service';
 import Currency from '../../models/Currency';
 
-import {concatMap, map} from 'rxjs/operators';
+import {concatMap, delay, map, switchMap} from 'rxjs/operators';
+import {forkJoin} from 'rxjs/observable/forkJoin';
 
 
 @Injectable()
@@ -29,6 +30,34 @@ export class CurrencyListEffects {
           )
       )
     );
+
+  @Effect()
+  loadCurrencyListLazy$ = this.actions$
+    .pipe(
+      ofType(CurrencyListActions.LAZY_LOAD_CURRENCY_LIST),
+      concatMap(() =>
+        forkJoin(
+          this.dispatchLoadCurrencyList(100),
+          this.dispatchLoadCurrencyList(200),
+        )
+          .pipe(
+            switchMap(([currencyList1, currencyList2]) =>
+              [
+                new CurrencyListActions.LoadCurrencyListSuccess([...currencyList1, ...currencyList2]),
+                new CurrencyListActions.LazyLoadCurrencyListSuccess()
+              ]
+            )
+          )
+      )
+    );
+
+  private dispatchLoadCurrencyList(start: number) {
+    const url = this.apiService.getCoinmarketUrl(start);
+    return this.apiService.doCoinmarketRequest(url)
+      .pipe(
+        delay(300)
+      );
+  }
 
 }
 
