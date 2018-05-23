@@ -51,6 +51,20 @@ export class CurrencyListEffects {
       )
     );
 
+  @Effect()
+  loadCurrencyListBinance$ = this.actions$
+    .pipe(
+      ofType(CurrencyListActions.LAZY_LOAD_CURRENCY_LIST_SUCCESS),
+      concatMap(() =>
+        this.apiService.doBinanceRequest()
+          .pipe(
+            map((binanceHash: any) =>
+              new CurrencyListActions.LoadCurrencyListBinanceSuccess(binanceHash)
+            )
+          )
+      )
+    );
+
   private dispatchLoadCurrencyList(start: number) {
     const url = this.apiService.getCoinmarketUrl(start);
     return this.apiService.doCoinmarketRequest(url)

@@ -38,7 +38,7 @@ export class CurrencyListComponent implements OnInit, AfterViewInit {
   }
 
   isUserAuthorized(): boolean {
-    return false;
+    return true;
   }
 
   getDisplayedColumns(): string[] {
