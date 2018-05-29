@@ -65,7 +65,7 @@
       <mat-cell
         class="column column--binance--text text--center"
         *matCellDef="let element">
-        {{element.isOnBinance}}
+        <mat-icon *ngIf="element.isOnBinance" class="green--text">check_circle</mat-icon>
       </mat-cell>
     </ng-container>
 

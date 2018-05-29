@@ -16,12 +16,14 @@ import {EffectsModule} from '@ngrx/effects';
 import {CurrencyListEffects} from './store/currencyList/currencyList.effects';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MyMaterialModule} from './my-material.module';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MainMenuComponent,
-    CurrencyListComponent
+    CurrencyListComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

@@ -30,7 +30,7 @@ export class CurrencyListComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(new CurrencyListActions.LazyLoadCurrencyList());
+
   }
 
   ngAfterViewInit(): void {

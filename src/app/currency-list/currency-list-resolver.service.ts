@@ -5,27 +5,42 @@ import {Injectable} from '@angular/core';
 
 import 'rxjs/add/observable/from';
 import * as fromRoot from '../store/reducers';
-import {Action, Store} from '@ngrx/store';
+import {Action, select, Store} from '@ngrx/store';
 import * as CurrencyListActions from '../store/currencyList/currencyList.action';
-import {Actions} from '@ngrx/effects';
 import 'rxjs/add/operator/take';
+import Currency from '../models/Currency';
+import {filter, take, tap} from 'rxjs/operators';
+
 
 @Injectable()
 export class CurrencyListResolverService implements Resolve<Action> {
   constructor(
     private apiService: ApiService,
-    private store: Store<fromRoot.State>,
-    private action$: Actions
+    private store: Store<fromRoot.State>
   ) {
   }
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Action> {
-    const url = this.apiService.getCoinmarketUrl();
-    this.store.dispatch(new CurrencyListActions.LoadCurrencyList(url));
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
 
-    return this.action$
-      .ofType(CurrencyListActions.LOAD_CURRENCY_LIST_SUCCESS)
-      .take(1);
+    const isStoreEmpty = (currencyList: any[]) => currencyList.length === 0;
+    const isStoreNeededLazyLoading = (currencyList: any[]) => currencyList.length <= 100;
+
+    return this.store.pipe(
+      select(fromRoot.getCurrencyList),
+      tap((currencyList: Currency[]) => {
+        if (isStoreEmpty(currencyList)) {
+          const url = this.apiService.getCoinmarketUrl();
+          this.store.dispatch(new CurrencyListActions.LoadCurrencyList(url));
+        }
+      }),
+      filter(currencyList => !isStoreEmpty(currencyList)),
+      tap((currencyList: Currency[]) => {
+        if (isStoreNeededLazyLoading(currencyList)) {
+          this.store.dispatch(new CurrencyListActions.LazyLoadCurrencyList());
+        }
+      }),
+      take(1)
+    );
   }
 
 }
