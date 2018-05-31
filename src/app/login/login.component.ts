@@ -1,8 +1,5 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-
-interface IMatTab {
-  position: number | null;
-}
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -11,13 +8,16 @@ interface IMatTab {
 })
 export class LoginComponent implements OnInit {
 
-  @ViewChild('tab1') tab1: IMatTab;
-  @ViewChild('tab2') tab2: IMatTab;
+  tabForm: FormGroup;
 
-  constructor() { }
+  constructor(fb: FormBuilder) {
+    this.tabForm = fb.group({
+      firstInput: ['aaa', Validators.required],
+      secondInput: ['bbb']
+    });
+  }
 
   ngOnInit() {
-    this.tab1.position = 0;
   }
 
 }

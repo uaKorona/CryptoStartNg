@@ -1,12 +1,24 @@
 import {NgModule} from '@angular/core';
-import {MatIconModule, MatPaginatorModule, MatTableModule, MatTabsModule, MatToolbarModule} from '@angular/material';
+import {
+  MatCardModule,
+  MatFormFieldModule,
+  MatIconModule, MatInputModule,
+  MatPaginatorModule,
+  MatTableModule,
+  MatTabsModule,
+  MatToolbarModule
+} from '@angular/material';
 
 const importsExports = [
   MatIconModule,
   MatToolbarModule,
   MatPaginatorModule,
   MatTableModule,
-  MatTabsModule
+  MatTabsModule,
+  MatCardModule,
+  MatFormFieldModule,
+  MatInputModule,
+
 ];
 
 @NgModule({

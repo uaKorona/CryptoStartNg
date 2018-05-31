@@ -1,4 +1,29 @@
 <mat-tab-group id="loginRegister">
-  <mat-tab #tab1 label="Tab 1">Content 1</mat-tab>
-  <mat-tab #tab2 label="Tab 2">Content 2</mat-tab>
+  <mat-tab label="Tab 1">
+    <mat-card class="form-container">
+      <form [formGroup]="tabForm">
+
+        <mat-form-field class="width--50">
+          <mat-label>Input 1</mat-label>
+          <input
+            matInput
+            formControlName="firstInput"
+            placeholder="Simple Input 1">
+          <mat-error *ngIf="tabForm.controls.firstInput.invalid">Required me</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="width--50">
+          <mat-label>Input 2</mat-label>
+          <input
+            matInput
+            formControlName="secondInput"
+            placeholder="Simple Input 2">
+        </mat-form-field>
+
+      </form>
+    </mat-card>
+  </mat-tab>
+  <mat-tab label="Tab 2">
+    <mat-card></mat-card>
+  </mat-tab>
 </mat-tab-group>
