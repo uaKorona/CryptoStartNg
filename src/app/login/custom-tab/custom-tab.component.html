@@ -1,0 +1,21 @@
+<mat-card class="form-container" id="customTab">
+  <form [formGroup]="tabForm">
+
+    <mat-form-field class="width--50">
+      <input
+        matInput
+        formControlName="firstInput"
+        placeholder="{{tabOption.firstInputPlaceholder}}">
+      <mat-error *ngIf="tabForm.controls.firstInput.invalid">Required me</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="width--50">
+      <input
+        matInput
+        formControlName="secondInput"
+        placeholder="{{tabOption.secondInputPlaceholder}}">
+    </mat-form-field>
+
+  </form>
+</mat-card>
+

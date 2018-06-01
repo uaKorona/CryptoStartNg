@@ -17,13 +17,15 @@ import {CurrencyListEffects} from './store/currencyList/currencyList.effects';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MyMaterialModule} from './my-material.module';
 import { LoginComponent } from './login/login.component';
+import { CustomTabComponent } from './login/custom-tab/custom-tab.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MainMenuComponent,
     CurrencyListComponent,
-    LoginComponent
+    LoginComponent,
+    CustomTabComponent
   ],
   imports: [
     BrowserModule,
