@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {TabOption} from '../../models/TabOption';
 
@@ -9,18 +9,14 @@ import {TabOption} from '../../models/TabOption';
 })
 export class CustomTabComponent implements OnInit {
   tabForm: FormGroup;
-  tabOption;
+  @Input() tabOption: TabOption;
 
-  constructor(fb: FormBuilder) {
-    this.tabOption = new TabOption({
-      firstInputPlaceholder: '111'
-    });
-
-    const controlsConfig = this.getControlsConfig(this.tabOption);
-    this.tabForm = fb.group(controlsConfig);
+  constructor(private fb: FormBuilder) {
   }
 
   ngOnInit() {
+    const controlsConfig = this.getControlsConfig(this.tabOption);
+    this.tabForm = this.fb.group(controlsConfig);
   }
 
   private getControlsConfig(tabOption: TabOption) {

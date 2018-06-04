@@ -1,4 +1,4 @@
-import {Validators} from '@angular/forms';
+type errorFn = () => string;
 
 export class TabOption {
   name = 'customTab';
@@ -10,6 +10,7 @@ export class TabOption {
   secondInputValidators: any[] | null = null;
   submitButtonName = 'submitButtonName';
   submitButtonStyle = '';
+  getErrorMessage: {[key: string]: errorFn};
 
   constructor (data = {}) {
     Object.assign(this, data);

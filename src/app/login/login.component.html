@@ -1,10 +1,9 @@
 <mat-tab-group id="loginRegister">
-  <mat-tab label="Tab 1">
-    <app-custom-tab></app-custom-tab>
-  </mat-tab>
 
-  <mat-tab label="Tab 2">
-      <app-custom-tab></app-custom-tab>
+  <mat-tab *ngFor="let tab of tabOptions" label="{{tab.name}}">
+
+    <app-custom-tab [tabOption]="tab"></app-custom-tab>
+
   </mat-tab>
 
 </mat-tab-group>
