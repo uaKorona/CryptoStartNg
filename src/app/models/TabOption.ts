@@ -10,9 +10,27 @@ export class TabOption {
   secondInputValidators: any[] | null = null;
   submitButtonName = 'submitButtonName';
   submitButtonStyle = '';
-  getErrorMessage: {[key: string]: errorFn};
+  firstInputErrorTable: { [key: string]: string };
+  secondInputErrorTable: { [key: string]: string };
 
-  constructor (data = {}) {
+  constructor(data = {}) {
     Object.assign(this, data);
   }
+
+  private getErrorMessage(inputErrorTable: { [key: string]: string }, errors) {
+    const errorArray = Object
+      .keys(errors)
+      .map(errorKey => inputErrorTable[errorKey]);
+
+    return errorArray[0] || '';
+  }
+
+  firstInputErrors = (errors) => {
+    return this.getErrorMessage(this.firstInputErrorTable, errors);
+  }
+
+  secondInputErrors = (errors) => {
+    return this.getErrorMessage(this.secondInputErrorTable, errors);
+  }
+
 }

@@ -27,9 +27,13 @@ export class LoginComponent implements OnInit {
       firstInputPlaceholder: 'Enter User ID',
       secondInputPlaceholder: 'Enter User Password',
       submitButtonName: 'Login',
-      firstInputValidators: [Validators.required],
-      getErrorMessage: {
-        required: () => 'Required me'
+      firstInputValidators: [
+        Validators.required,
+        Validators.pattern(/^\d+$/)
+      ],
+      firstInputErrorTable: {
+        required: 'Required',
+        pattern: 'Only numbers'
       }
     };
   }

@@ -7,7 +7,7 @@
         formControlName="firstInput"
         placeholder="{{tabOption.firstInputPlaceholder}}">
       <mat-error *ngIf="tabForm.controls.firstInput.invalid">
-
+        {{tabOption.firstInputErrors(tabForm.controls.firstInput.errors)}}
       </mat-error>
     </mat-form-field>
 
