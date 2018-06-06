@@ -1,6 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {TabOption} from '../../models/TabOption';
+import {ITabPayload} from '../../models/ITabPayload';
 
 @Component({
   selector: 'app-custom-tab',
@@ -10,6 +11,7 @@ import {TabOption} from '../../models/TabOption';
 export class CustomTabComponent implements OnInit {
   tabForm: FormGroup;
   @Input() tabOption: TabOption;
+  @Output() tabSubmit = new EventEmitter<ITabPayload>();
 
   constructor(private fb: FormBuilder) {
   }
@@ -19,12 +21,20 @@ export class CustomTabComponent implements OnInit {
     this.tabForm = this.fb.group(controlsConfig);
   }
 
+  submitTab() {
+    if (this.tabForm.invalid) {
+      return;
+    }
+
+    this.tabSubmit.emit(this.tabForm.value);
+  }
+
   private getControlsConfig(tabOption: TabOption) {
     const initValue = null;
 
     return {
       [tabOption.firstInputName]: [initValue, tabOption.firstInputValidators],
-      [tabOption.secondInputName]: [initValue, tabOption.firstInputValidators]
+      [tabOption.secondInputName]: [initValue, tabOption.secondInputValidators]
     };
   }
 

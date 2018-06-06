@@ -2,7 +2,10 @@
 
   <mat-tab *ngFor="let tab of tabOptions" label="{{tab.name}}">
 
-    <app-custom-tab [tabOption]="tab"></app-custom-tab>
+    <app-custom-tab
+      [tabOption]="tab"
+      (tabSubmit)="onTabSubmit($event)"
+    ></app-custom-tab>
 
   </mat-tab>
 

@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {TabOption} from '../models/TabOption';
 import {Validators} from '@angular/forms';
+import {ITabPayload} from '../models/ITabPayload';
 
 @Component({
   selector: 'app-login',
@@ -21,6 +22,10 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
+  onTabSubmit(payload: ITabPayload) {
+    console.log('LoginComponent', payload);
+  }
+
   private getLoginTabConfig() {
     return {
       name: 'Login',
@@ -34,7 +39,14 @@ export class LoginComponent implements OnInit {
       firstInputErrorTable: {
         required: 'Required',
         pattern: 'Only numbers'
-      }
+      },
+      secondInputValidators: [
+        Validators.required
+      ],
+      secondInputErrorTable: {
+        required: 'Required'
+      },
+      submitButtonStyle: 'mat-primary'
     };
   }
 

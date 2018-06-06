@@ -16,7 +16,19 @@
         matInput
         formControlName="secondInput"
         placeholder="{{tabOption.secondInputPlaceholder}}">
+      <mat-error *ngIf="tabForm.controls.secondInput.invalid">
+        {{tabOption.secondInputErrors(tabForm.controls.secondInput.errors)}}
+      </mat-error>
     </mat-form-field>
+
+    <div>
+      <button
+        mat-button
+        [ngClass]="tabOption.submitButtonStyle"
+        (click)="submitTab()">
+        {{tabOption.submitButtonName}}
+      </button>
+    </div>
 
   </form>
 </mat-card>
