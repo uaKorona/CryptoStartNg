@@ -39,22 +39,19 @@ export class CurrencyListComponent implements OnInit, AfterViewInit {
       .store$
       .select(getCurrentUser)
       .subscribe((currentUser: User) => {
-          console.log('currentUser', currentUser);
           this.currentUser = currentUser;
         }
       );
   }
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     this.initPaginator(this.paginator);
   }
 
   isUserAuthorized(): boolean {
-    return true;
+    return this.currentUser && this.currentUser.isUserAuthorized();
   }
 
   private getDisplayedColumns(): string[] {

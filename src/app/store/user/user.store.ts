@@ -10,7 +10,3 @@ export const initialUserState: UserState = {
   currentUser: new User({name: 'initUser'}),
   userList: userListMock.map(userMock => new User(userMock))
 };
-
-/** selector's helpers */
-
-export const getCurrUserHelper = (state: UserState) => state.currentUser;

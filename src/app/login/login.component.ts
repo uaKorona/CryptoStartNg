@@ -3,6 +3,11 @@ import {TabOption} from '../models/TabOption';
 import {Validators} from '@angular/forms';
 import {ITabPayload} from '../models/ITabPayload';
 
+enum TabIndexEnum {
+  Login = 0,
+  Register = 1
+}
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -11,11 +16,12 @@ import {ITabPayload} from '../models/ITabPayload';
 export class LoginComponent implements OnInit {
 
   tabOptions: TabOption[] = [];
+  selectedTabIndex = TabIndexEnum.Login;
 
   constructor() {
     this.tabOptions = [
       new TabOption(this.getLoginTabConfig()),
-      new  TabOption()
+      new TabOption()
     ];
   }
 
@@ -23,7 +29,11 @@ export class LoginComponent implements OnInit {
   }
 
   onTabSubmit(payload: ITabPayload) {
-    console.log('LoginComponent', payload);
+    if (this.selectedTabIndex === TabIndexEnum.Login) {
+      console.log('login:', payload);
+    } else {
+      console.log('register:', payload);
+    }
   }
 
   private getLoginTabConfig() {
