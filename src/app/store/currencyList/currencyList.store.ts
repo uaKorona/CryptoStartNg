@@ -25,4 +25,6 @@ export const initialState: State = {
   ]
 };
 
+/** selector's helpers */
+
 export const getList = (state: State) => state.list;

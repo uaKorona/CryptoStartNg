@@ -1,9 +1,11 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {Store} from '@ngrx/store';
-import * as fromRoot from '../store/reducers';
+import {State} from '../store/reducers';
 import Currency from '../models/Currency';
 import {MatPaginator, MatTableDataSource} from '@angular/material';
-import * as CurrencyListActions from '../store/currencyList/currencyList.action';
+import {getCurrencyList} from '../store/currencyList/currencyList.selectors';
+import {User} from '../models/User';
+import {getCurrentUser} from '../store/user/user.selectors';
 
 @Component({
   selector: 'app-currency-list',
@@ -12,19 +14,33 @@ import * as CurrencyListActions from '../store/currencyList/currencyList.action'
 })
 export class CurrencyListComponent implements OnInit, AfterViewInit {
   dataSource: MatTableDataSource<Currency>;
+  displayedColumns: string[];
+  currentUser: User;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
-    private store: Store<fromRoot.State>,
+    private store$: Store<State>,
   ) {
 
+    this.displayedColumns = this.getDisplayedColumns();
+
     this
-      .store
-      .select(fromRoot.getCurrencyList)
+      .store$
+      .select(getCurrencyList)
       .subscribe((currencyList: Currency[]) => {
           this.dataSource = new MatTableDataSource(currencyList);
-          this.initPaginator(this.paginator); /** update paginator every time when new currency list is got */
+          this.initPaginator(this.paginator);
+          /** update paginator every time when new currency list is got */
+        }
+      );
+
+    this
+      .store$
+      .select(getCurrentUser)
+      .subscribe((currentUser: User) => {
+          console.log('currentUser', currentUser);
+          this.currentUser = currentUser;
         }
       );
   }
@@ -41,7 +57,7 @@ export class CurrencyListComponent implements OnInit, AfterViewInit {
     return true;
   }
 
-  getDisplayedColumns(): string[] {
+  private getDisplayedColumns(): string[] {
     return this
       .getInitColumns()
       .filter(column => {
