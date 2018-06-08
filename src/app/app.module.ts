@@ -18,6 +18,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MyMaterialModule} from './my-material.module';
 import { LoginComponent } from './login/login.component';
 import { CustomTabComponent } from './login/custom-tab/custom-tab.component';
+import {UserEffects} from './store/user/user.effects';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,7 @@ import { CustomTabComponent } from './login/custom-tab/custom-tab.component';
     AppRoutingModule,
     MyMaterialModule,
     StoreModule.forRoot(reducers, {metaReducers}),
-    EffectsModule.forRoot([CurrencyListEffects])
+    EffectsModule.forRoot([CurrencyListEffects, UserEffects])
   ],
   providers: [],
   bootstrap: [AppComponent]

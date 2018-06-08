@@ -1,6 +1,6 @@
 import {UserStatesEnum} from './UserStatesEnum';
 
-interface ISimpleUser {
+export interface ISimpleUser {
   id?: string;
   name?: string;
   password?: string;

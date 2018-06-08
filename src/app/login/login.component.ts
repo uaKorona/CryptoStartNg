@@ -2,6 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {TabOption} from '../models/TabOption';
 import {Validators} from '@angular/forms';
 import {ITabPayload} from '../models/ITabPayload';
+import {Store} from '@ngrx/store';
+import {State} from '../store/reducers';
+import {UserActions, UserLogin, UserRegister} from '../store/user/user.actions';
 
 enum TabIndexEnum {
   Login = 0,
@@ -18,22 +21,43 @@ export class LoginComponent implements OnInit {
   tabOptions: TabOption[] = [];
   selectedTabIndex = TabIndexEnum.Login;
 
-  constructor() {
-    this.tabOptions = [
-      new TabOption(this.getLoginTabConfig()),
-      new TabOption()
-    ];
+  constructor(
+    private store$: Store<State>,
+  ) {
+    this.tabOptions = this.getTabOptions();
   }
 
   ngOnInit() {
   }
 
   onTabSubmit(payload: ITabPayload) {
-    if (this.selectedTabIndex === TabIndexEnum.Login) {
-      console.log('login:', payload);
-    } else {
-      console.log('register:', payload);
-    }
+
+    const action: UserActions = (this.selectedTabIndex === TabIndexEnum.Login)
+      ? this.getLoginAction(payload)
+      : this.getRegisterAction(payload);
+
+    this.store$.dispatch(action);
+  }
+
+  getLoginAction(payload: ITabPayload) {
+    return new UserLogin({
+      id: payload.firstInput,
+      password: payload.secondInput
+    });
+  }
+
+  getRegisterAction(payload: ITabPayload) {
+    return new UserRegister({
+      name: payload.firstInput,
+      password: payload.secondInput
+    });
+  }
+
+  private getTabOptions() {
+    return [
+      new TabOption(this.getLoginTabConfig()),
+      new TabOption()
+    ];
   }
 
   private getLoginTabConfig() {
