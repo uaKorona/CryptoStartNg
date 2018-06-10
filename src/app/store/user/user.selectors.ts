@@ -3,9 +3,23 @@ import {UserState} from './user.store';
 
 const getUserState = createFeatureSelector<UserState>('user');
 
-export const getCurrentUser = createSelector(getUserState, getCurrentUserState);
+export const getCurrentUser = createSelector(
+  getUserState,
+  (state: UserState) => state.currentUser
+);
 
-function getCurrentUserState(state: UserState) {
-  return state.currentUser;
-}
+export const getUserList = createSelector(
+  getUserState,
+  (state: UserState) => state.userList
+);
+
+export const findUserById = (userId: string) =>
+  createSelector(
+    getUserState,
+    (state: UserState) => state.userList.find(user => user.id === userId)
+  );
+
+
+
+
 

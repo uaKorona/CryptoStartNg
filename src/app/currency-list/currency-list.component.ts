@@ -40,6 +40,7 @@ export class CurrencyListComponent implements OnInit, AfterViewInit {
       .select(getCurrentUser)
       .subscribe((currentUser: User) => {
           this.currentUser = currentUser;
+          this.displayedColumns = this.getDisplayedColumns();
         }
       );
   }
