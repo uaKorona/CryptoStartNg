@@ -23,10 +23,8 @@ export class UserEffects {
         this.store$.select(getUserList),
         (action, userList) => {
           const {payload} = (action as UserLogin);
-          return userList.find(user => user.id === payload.id);
-        }
-      ),
-      map(foundUser => {
+          const foundUser = userList.find(user => user.id === payload.id);
+
           if (foundUser) {
             return new UserLoginSuccess(foundUser);
           }
