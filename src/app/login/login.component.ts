@@ -5,6 +5,8 @@ import {ITabPayload} from '../models/ITabPayload';
 import {Store} from '@ngrx/store';
 import {State} from '../store/reducers';
 import {UserActions, UserLogin, UserRegister} from '../store/user/user.actions';
+import {Observable} from 'rxjs/Observable';
+import {getUserError} from '../store/user/user.selectors';
 
 enum TabIndexEnum {
   Login = 0,
@@ -20,11 +22,13 @@ export class LoginComponent implements OnInit {
 
   tabOptions: TabOption[] = [];
   selectedTabIndex = TabIndexEnum.Login;
+  userError$: Observable<string | null>;
 
   constructor(
     private store$: Store<State>,
   ) {
     this.tabOptions = this.getTabOptions();
+    this.userError$ = this.store$.select(getUserError);
   }
 
   ngOnInit() {

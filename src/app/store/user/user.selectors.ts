@@ -13,6 +13,11 @@ export const getUserList = createSelector(
   (state: UserState) => state.userList
 );
 
+export const getUserError = createSelector(
+  getUserState,
+  (state: UserState) => state.userError
+);
+
 export const findUserById = (userId: string) =>
   createSelector(
     getUserState,
