@@ -10,5 +10,7 @@
   </mat-tab>
 
 </mat-tab-group>
+<div class="login-error">
+  <h2>{{userError$ | async }}</h2>
+</div>
 
-{{userError$ | async }}

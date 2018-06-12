@@ -7,13 +7,15 @@ import {Store} from '@ngrx/store';
 import {State} from '../reducers';
 import {getUserList} from './user.selectors';
 import {User} from '../../models/User';
+import {NavigationService} from '../../core/navigation.service';
 
 @Injectable()
 export class UserEffects {
 
   constructor(
     private actions$: Actions,
-    private store$: Store<State>) {
+    private store$: Store<State>,
+    private navigationService: NavigationService) {
   }
 
   @Effect()
@@ -28,6 +30,7 @@ export class UserEffects {
 
           if (foundUser) {
             if (foundUser.password === payload.password) {
+              this.navigationService.goHome();
               return new UserLoginSuccess(foundUser);
             }
             return new UserLoginFail('Password is invalid.');
