@@ -33,4 +33,8 @@ export class User {
     return this.state === UserStatesEnum.authorized;
   }
 
+  isPasswordCorrect(passwordForChecking: string) {
+    return this.password === passwordForChecking;
+  }
+
 }

@@ -4,7 +4,7 @@ import {
   MatCardModule,
   MatFormFieldModule,
   MatIconModule, MatInputModule,
-  MatPaginatorModule,
+  MatPaginatorModule, MatSnackBarModule,
   MatTableModule,
   MatTabsModule,
   MatToolbarModule
@@ -19,7 +19,8 @@ const importsExports = [
   MatCardModule,
   MatFormFieldModule,
   MatInputModule,
-  MatButtonModule
+  MatButtonModule,
+  MatSnackBarModule
 ];
 
 @NgModule({
