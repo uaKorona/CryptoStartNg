@@ -1,6 +1,14 @@
 import {Injectable} from '@angular/core';
 import {Actions, Effect, ofType} from '@ngrx/effects';
-import {UserActionsEnum, UserLogin, UserLoginFail, UserLoginSuccess} from './user.actions';
+import {
+  UserActionsEnum,
+  UserLogin,
+  UserLoginFail,
+  UserLoginSuccess,
+  UserRegister,
+  UserRegisterFail,
+  UserRegisterSuccess
+} from './user.actions';
 import {catchError, tap, withLatestFrom} from 'rxjs/operators';
 import {of} from 'rxjs/observable/of';
 import {Store} from '@ngrx/store';
@@ -64,6 +72,36 @@ export class UserEffects {
       })
     );
 
+
+  @Effect()
+  registerUser$ = this.actions$
+    .pipe(
+      ofType(UserActionsEnum[UserActionsEnum.REGISTER_USER]),
+      withLatestFrom(
+        this.store$.select(getUserList),
+        (action: UserRegister, userList: User[]) => {
+          const {payload} = action;
+          const foundUser = userList.find(user => user.name === payload.name);
+
+          if (foundUser) {
+            return new UserRegisterFail('User with that name has already registered');
+          }
+
+          const id = User.createUserId(this.getMaxUserId(userList));
+          const newUser = new User({
+            id,
+            name: payload.name,
+            password: payload.password
+          });
+
+          this.store$.dispatch(new UserRegisterSuccess(newUser));
+
+          return new UserLoginSuccess(newUser);
+        }
+      ),
+      catchError(error => of(error))
+    );
+
   private showNotification(message: string, type: MessageTypeEnum) {
     const config = {
       duration: 5000,
@@ -71,6 +109,12 @@ export class UserEffects {
     };
 
     this.snackBar.open(message, '', config);
+  }
+
+  private getMaxUserId(userList: User[]): string {
+    const ids = userList.map(user => +user.id);
+
+    return Math.max.apply(null, ids);
   }
 
 }

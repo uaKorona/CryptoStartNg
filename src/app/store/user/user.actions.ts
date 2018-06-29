@@ -5,7 +5,9 @@ export enum UserActionsEnum {
   LOGIN_USER,
   LOGIN_USER_SUCCESS,
   LOGIN_USER_FAIL,
-  REGISTER_USER
+  REGISTER_USER,
+  REGISTER_USER_SUCCESS,
+  REGISTER_USER_FAIL,
 }
 
 export class UserLogin implements Action {
@@ -26,6 +28,16 @@ export class UserLoginFail implements Action {
 export class UserRegister implements Action {
   readonly type = UserActionsEnum[UserActionsEnum.REGISTER_USER];
   constructor(public payload: ISimpleUser) {}
+}
+
+export class UserRegisterSuccess implements Action {
+  readonly type = UserActionsEnum[UserActionsEnum.REGISTER_USER_SUCCESS];
+  constructor(public payload: ISimpleUser) {}
+}
+
+export class UserRegisterFail implements Action {
+  readonly type = UserActionsEnum[UserActionsEnum.REGISTER_USER_FAIL];
+  constructor(public payload: string) {}
 }
 
 export type UserActions =

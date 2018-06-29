@@ -13,6 +13,8 @@ enum TabIndexEnum {
   Register = 1
 }
 
+const MIN_LENGTH = 5;
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -60,7 +62,7 @@ export class LoginComponent implements OnInit {
   private getTabOptions() {
     return [
       new TabOption(this.getLoginTabConfig()),
-      new TabOption()
+      new TabOption(this.getRegisterTabConfig())
     ];
   }
 
@@ -83,6 +85,30 @@ export class LoginComponent implements OnInit {
       ],
       secondInputErrorTable: {
         required: 'Required'
+      },
+      submitButtonStyle: 'mat-primary'
+    };
+  }
+
+  private getRegisterTabConfig() {
+    return {
+      name: 'Register',
+      firstInputPlaceholder: 'Enter User Name',
+      secondInputPlaceholder: 'Enter User Password',
+      submitButtonName: 'Register',
+      firstInputValidators: [
+        Validators.required
+      ],
+      firstInputErrorTable: {
+        required: 'Required'
+      },
+      secondInputValidators: [
+        Validators.required,
+        Validators.minLength(MIN_LENGTH)
+      ],
+      secondInputErrorTable: {
+        required: 'Required',
+        minlength: 'Min length should not be less then ' + MIN_LENGTH
       },
       submitButtonStyle: 'mat-primary'
     };

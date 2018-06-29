@@ -1,5 +1,5 @@
 import {initialUserState} from './user.store';
-import {UserActions, UserActionsEnum, UserLoginFail} from './user.actions';
+import {UserActions, UserActionsEnum, UserLoginFail, UserRegisterFail} from './user.actions';
 import {User} from '../../models/User';
 
 export function reducer(state = initialUserState, action: UserActions) {
@@ -15,8 +15,18 @@ export function reducer(state = initialUserState, action: UserActions) {
         userError: null
       };
 
+    case UserActionsEnum[UserActionsEnum.REGISTER_USER_SUCCESS]:
+      const newUser = new User(action.payload);
+
+      return {
+        ...state,
+        userList: [...state.userList, newUser],
+        userError: null
+      };
+
     case UserActionsEnum[UserActionsEnum.LOGIN_USER_FAIL]:
-      const userError = (action as UserLoginFail).payload;
+    case UserActionsEnum[UserActionsEnum.REGISTER_USER_FAIL]:
+      const userError = (action as UserLoginFail | UserRegisterFail).payload;
       return {
         ...state,
         userError
