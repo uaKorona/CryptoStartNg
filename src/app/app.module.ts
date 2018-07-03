@@ -19,6 +19,7 @@ import {MyMaterialModule} from './my-material.module';
 import { LoginComponent } from './login/login.component';
 import { CustomTabComponent } from './login/custom-tab/custom-tab.component';
 import {UserEffects} from './store/user/user.effects';
+import { SettingsComponent } from './settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import {UserEffects} from './store/user/user.effects';
     MainMenuComponent,
     CurrencyListComponent,
     LoginComponent,
-    CustomTabComponent
+    CustomTabComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,

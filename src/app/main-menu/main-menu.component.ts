@@ -4,6 +4,7 @@ import {Store} from '@ngrx/store';
 import {getCurrentUser} from '../store/user/user.selectors';
 import {Observable} from 'rxjs/Observable';
 import {User} from '../models/User';
+import {RouterPath} from '../constants/router-path.constant';
 
 @Component({
   selector: 'app-main-menu',
@@ -13,6 +14,7 @@ import {User} from '../models/User';
 export class MainMenuComponent implements OnInit {
 
   currentUser$: Observable<User>;
+  routerPath = RouterPath;
 
   constructor(
     private store$: Store<State>
