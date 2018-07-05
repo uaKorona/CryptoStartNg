@@ -2,10 +2,11 @@ import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {State} from '../store/reducers';
 import Currency from '../models/Currency';
-import {MatPaginator, MatTableDataSource} from '@angular/material';
+import {MatDialog, MatPaginator, MatTableDataSource} from '@angular/material';
 import {getCurrencyList} from '../store/currencyList/currencyList.selectors';
 import {User} from '../models/User';
 import {getCurrentUser} from '../store/user/user.selectors';
+import {CurrencyPreviewDialogComponent} from '../currency-preview-dialog/currency-preview-dialog.component';
 
 @Component({
   selector: 'app-currency-list',
@@ -21,6 +22,7 @@ export class CurrencyListComponent implements OnInit, AfterViewInit {
 
   constructor(
     private store$: Store<State>,
+    private dialog: MatDialog
   ) {
 
     this.displayedColumns = this.getDisplayedColumns();
@@ -45,7 +47,8 @@ export class CurrencyListComponent implements OnInit, AfterViewInit {
       );
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   ngAfterViewInit(): void {
     this.initPaginator(this.paginator);
@@ -53,6 +56,29 @@ export class CurrencyListComponent implements OnInit, AfterViewInit {
 
   isUserAuthorized(): boolean {
     return this.currentUser && this.currentUser.isUserAuthorized();
+  }
+
+  applyFilter(searchString: string) {
+    const stringFilter = searchString
+      .trim() // Remove whitespace
+      .toLowerCase(); // MatTableDataSource defaults to lowercase matches
+
+    if (this.dataSource) {
+      this.dataSource.filter = stringFilter;
+    }
+  }
+
+  clickOnBinanceCoin(coin: Currency) {
+    if (coin.isOnBinance) {
+      const dialogRef = this.dialog.open(CurrencyPreviewDialogComponent, {
+        width: '250px',
+        data: { name: 'Roman', animal: 'Zver' }
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        console.log('The dialog was closed', result);
+      });
+    }
   }
 
   private getDisplayedColumns(): string[] {

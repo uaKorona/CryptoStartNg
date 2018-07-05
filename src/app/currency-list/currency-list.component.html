@@ -1,4 +1,11 @@
 <div class="example-container mat-elevation-z8">
+  <!--SEARCH-->
+  <div class="example-header">
+    <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+    </mat-form-field>
+  </div>
+  <!--TABLE-->
   <mat-table #table [dataSource]="dataSource">
 
     <ng-container matColumnDef="rank">
@@ -64,8 +71,12 @@
       </mat-header-cell>
       <mat-cell
         class="column column--binance--text text--center"
-        *matCellDef="let element">
-        <mat-icon *ngIf="element.isOnBinance" class="green--text">check_circle</mat-icon>
+        *matCellDef="let element"
+        (click)="clickOnBinanceCoin(element)">
+        <mat-icon
+          *ngIf="element.isOnBinance"
+          class="green--text">check_circle
+        </mat-icon>
       </mat-cell>
     </ng-container>
 

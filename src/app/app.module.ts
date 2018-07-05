@@ -20,6 +20,7 @@ import { LoginComponent } from './login/login.component';
 import { CustomTabComponent } from './login/custom-tab/custom-tab.component';
 import {UserEffects} from './store/user/user.effects';
 import { SettingsComponent } from './settings/settings.component';
+import { CurrencyPreviewDialogComponent } from './currency-preview-dialog/currency-preview-dialog.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { SettingsComponent } from './settings/settings.component';
     CurrencyListComponent,
     LoginComponent,
     CustomTabComponent,
-    SettingsComponent
+    SettingsComponent,
+    CurrencyPreviewDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -42,6 +44,9 @@ import { SettingsComponent } from './settings/settings.component';
     MyMaterialModule,
     StoreModule.forRoot(reducers, {metaReducers}),
     EffectsModule.forRoot([CurrencyListEffects, UserEffects])
+  ],
+  entryComponents: [
+    CurrencyPreviewDialogComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
