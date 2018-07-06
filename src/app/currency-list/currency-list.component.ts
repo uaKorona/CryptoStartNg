@@ -70,14 +70,12 @@ export class CurrencyListComponent implements OnInit, AfterViewInit {
 
   clickOnBinanceCoin(coin: Currency) {
     if (coin.isOnBinance) {
-      const dialogRef = this.dialog.open(CurrencyPreviewDialogComponent, {
-        width: '250px',
-        data: { name: 'Roman', animal: 'Zver' }
-      });
-
-      dialogRef.afterClosed().subscribe(result => {
-        console.log('The dialog was closed', result);
-      });
+      this.dialog
+        .open(CurrencyPreviewDialogComponent, {
+          width: '500px',
+          disableClose: true,
+          data: {coin}
+        });
     }
   }
 

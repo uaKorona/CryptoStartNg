@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import Currency from '../models/Currency';
 
 @Component({
   selector: 'app-currency-preview-dialog',
@@ -7,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CurrencyPreviewDialogComponent implements OnInit {
 
-  constructor() { }
+  coin: Currency;
+  pairCoin = 'BTC';
+
+  constructor(
+    public dialogRef: MatDialogRef<CurrencyPreviewDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: { coin: Currency }
+    ) {
+    this.coin = this.data.coin;
+  }
 
   ngOnInit() {
+    console.log(this.data);
   }
 
 }
