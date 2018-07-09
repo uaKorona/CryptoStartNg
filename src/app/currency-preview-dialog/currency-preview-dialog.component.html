@@ -5,6 +5,13 @@
 
 <mat-dialog-content>
 
+<div *ngIf="loading">
+  L O A D I N G ...
+</div>
+
+<div *ngIf="(bCoin$ | async) as bCoin">
+  {{bCoin.priceChange}}
+</div>
 
 </mat-dialog-content>
 

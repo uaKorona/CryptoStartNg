@@ -7,6 +7,7 @@ import 'rxjs/add/observable/throw';
 import Currency from '../models/Currency';
 import * as currencyListImagesHash from '../store/currencyList/currencyListImagesHash';
 import {BCoinSimple} from '../models/BCoinSimple';
+import {BCoin24} from '../models/BCoin24';
 
 
 @Injectable()
@@ -41,6 +42,14 @@ export class ApiService {
         map(binanceList => this.getHashFromBinanceList(binanceList as any [])),
         catchError(error => Observable.throw(error.json()))
       );
+  }
+
+  getBinanceCurrencyDetail(coinSymbol: string): Observable<BCoin24> {
+    const binanceApiUrl = (symbol) => `/binance/api/v1/ticker/24hr?symbol=${symbol}`;
+
+    return this.http
+      .get(binanceApiUrl(coinSymbol))
+      .pipe(map(data => new BCoin24(data)));
   }
 
   private parseCurrencyList() {
