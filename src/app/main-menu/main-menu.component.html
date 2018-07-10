@@ -1,17 +1,17 @@
 <mat-toolbar color="warn" *ngIf="(currentUser$ | async) as currentUser">
-  <span routerLink="/">Application</span>
+  <span class="router-link" routerLink="/">Application</span>
 
   <!-- This fills the remaining space of the current row -->
   <span class="example-fill-remaining-space"></span>
 
-  <span *ngIf="!currentUser.isUserAuthorized()">
+  <span *ngIf="!currentUser.isUserAuthorized()" class="router-link">
     <span [routerLink]="routerPath.login">
       <mat-icon class="icon--center">recent_actors</mat-icon>
       Login/Register
     </span>
   </span>
 
-  <span *ngIf="currentUser.isUserAuthorized()" >
+  <span *ngIf="currentUser.isUserAuthorized()" class="router-link" >
     <button mat-button [matMenuTriggerFor]="menu">
       <mat-icon>account_box</mat-icon>
       {{currentUser.name}} ( {{currentUser.id}} )

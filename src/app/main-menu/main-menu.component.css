@@ -9,6 +9,6 @@
   top: 5px;
 }
 
-[routerLink] {
+.router-link {
   cursor: pointer;
 }

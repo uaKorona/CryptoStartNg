@@ -5,12 +5,34 @@
 
 <mat-dialog-content>
 
-<div *ngIf="loading">
+<div *ngIf="loading" style="text-align: center">
   L O A D I N G ...
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
 </div>
 
 <div *ngIf="(bCoin$ | async) as bCoin">
-  {{bCoin.priceChange}}
+
+  <mat-grid-list cols="2" rowHeight="2:1">
+    <mat-grid-tile class="cont--left grey--text">24 CHANGE</mat-grid-tile>
+    <mat-grid-tile
+      class="cont--right"
+      [ngClass]="{'green--text': bCoin.change24Dynamic, 'red--text': !bCoin.change24Dynamic}"
+    >{{bCoin.priceChange | currency}}
+    </mat-grid-tile>
+
+    <mat-grid-tile class="cont--left grey--text">24 CHANGE %</mat-grid-tile>
+    <mat-grid-tile
+      class="cont--right"
+      [ngClass]="{'green--text': bCoin.change24Dynamic, 'red--text': !bCoin.change24Dynamic}">
+      {{bCoin.priceChangePercent}}%
+    </mat-grid-tile>
+
+    <mat-grid-tile class="cont--left grey--text">AVERAGE</mat-grid-tile>
+    <mat-grid-tile class="cont--right">{{bCoin.weightedAvgPrice | currency}}</mat-grid-tile>
+  </mat-grid-list>
+
+
+
 </div>
 
 </mat-dialog-content>

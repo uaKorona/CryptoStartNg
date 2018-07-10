@@ -46,14 +46,6 @@
   flex-basis: 15% !important;
 }
 
-.text--right {
-  text-align: right;
-}
-
-.text--center {
-  text-align: center;
-}
-
 .img--border {
   vertical-align: middle;
   border: 1px solid grey;

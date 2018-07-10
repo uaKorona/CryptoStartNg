@@ -1,10 +1,16 @@
 import {NgModule} from '@angular/core';
 import {
   MatButtonModule,
-  MatCardModule, MatDialogModule,
+  MatCardModule,
+  MatDialogModule,
   MatFormFieldModule,
-  MatIconModule, MatInputModule, MatMenuModule,
-  MatPaginatorModule, MatSnackBarModule,
+  MatGridListModule,
+  MatIconModule,
+  MatInputModule,
+  MatMenuModule,
+  MatPaginatorModule,
+  MatProgressBarModule,
+  MatSnackBarModule,
   MatTableModule,
   MatTabsModule,
   MatToolbarModule
@@ -22,7 +28,9 @@ const importsExports = [
   MatButtonModule,
   MatSnackBarModule,
   MatMenuModule,
-  MatDialogModule
+  MatDialogModule,
+  MatProgressBarModule,
+  MatGridListModule
 ];
 
 @NgModule({
