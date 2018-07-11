@@ -1,7 +1,3 @@
 .cont--left ::ng-deep > figure {
   justify-content: left !important;
 }
-
-.cont--right ::ng-deep > figure {
-  justify-content: right !important;
-}

@@ -11,19 +11,20 @@
 </div>
 
 <div *ngIf="(bCoin$ | async) as bCoin">
+{{bCoin.change24Dynamic}}
 
   <mat-grid-list cols="2" rowHeight="2:1">
     <mat-grid-tile class="cont--left grey--text">24 CHANGE</mat-grid-tile>
     <mat-grid-tile
       class="cont--right"
-      [ngClass]="{'green--text': bCoin.change24Dynamic, 'red--text': !bCoin.change24Dynamic}"
+      [ngClass]="{'green--text': coin.change24Dynamic, 'red--text': !coin.change24Dynamic}"
     >{{bCoin.priceChange | currency}}
     </mat-grid-tile>
 
     <mat-grid-tile class="cont--left grey--text">24 CHANGE %</mat-grid-tile>
     <mat-grid-tile
       class="cont--right"
-      [ngClass]="{'green--text': bCoin.change24Dynamic, 'red--text': !bCoin.change24Dynamic}">
+      [ngClass]="{'green--text': coin.change24Dynamic, 'red--text': !coin.change24Dynamic}">
       {{bCoin.priceChangePercent}}%
     </mat-grid-tile>
 
