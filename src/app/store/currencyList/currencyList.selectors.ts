@@ -1,7 +1,10 @@
-import * as fromCurrencyListStore from './currencyList.store';
+import * as CurrencyListStore from './currencyList.store';
 import {createFeatureSelector, createSelector} from '@ngrx/store';
+import {State} from './currencyList.store';
 
 export const getCurrencyListState =
-  createFeatureSelector<fromCurrencyListStore.State>('currencyList');
+  createFeatureSelector<CurrencyListStore.State>('currencyList');
 
-export const getCurrencyList = createSelector(getCurrencyListState, fromCurrencyListStore.getList);
+export const getCurrencyList = createSelector(getCurrencyListState,
+  (state: State) => state.list
+);

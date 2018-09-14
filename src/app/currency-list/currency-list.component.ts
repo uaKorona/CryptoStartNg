@@ -13,18 +13,15 @@ import {CurrencyPreviewDialogComponent} from '../currency-preview-dialog/currenc
   templateUrl: './currency-list.component.html',
   styleUrls: ['./currency-list.component.css']
 })
-export class CurrencyListComponent implements OnInit, AfterViewInit {
+export class CurrencyListComponent implements AfterViewInit {
   dataSource: MatTableDataSource<Currency>;
   displayedColumns: string[];
   currentUser: User;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(
-    private store$: Store<State>,
-    private dialog: MatDialog
+  constructor(private store$: Store<State>, private dialog: MatDialog
   ) {
-
     this.displayedColumns = this.getDisplayedColumns();
 
     this
@@ -32,8 +29,8 @@ export class CurrencyListComponent implements OnInit, AfterViewInit {
       .select(getCurrencyList)
       .subscribe((currencyList: Currency[]) => {
           this.dataSource = new MatTableDataSource(currencyList);
-          this.initPaginator(this.paginator);
           /** update paginator every time when new currency list is got */
+          this.initPaginator(this.paginator);
         }
       );
 
@@ -45,9 +42,6 @@ export class CurrencyListComponent implements OnInit, AfterViewInit {
           this.displayedColumns = this.getDisplayedColumns();
         }
       );
-  }
-
-  ngOnInit(): void {
   }
 
   ngAfterViewInit(): void {

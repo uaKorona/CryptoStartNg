@@ -9,14 +9,12 @@ export const LOAD_CURRENCY_LIST_BINANCE_SUCCESS = 'LOAD_CURRENCY_LIST_BINANCE_SU
 
 export class LoadCurrencyList implements Action {
   readonly type = LOAD_CURRENCY_LIST;
-
   constructor(public payload: string) {
   }
 }
 
 export class LoadCurrencyListSuccess implements Action {
   readonly type = LOAD_CURRENCY_LIST_SUCCESS;
-
   constructor(public payload: Currency[]) {
   }
 }

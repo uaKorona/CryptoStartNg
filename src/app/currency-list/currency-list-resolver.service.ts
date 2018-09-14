@@ -15,14 +15,9 @@ import {State} from '../store/reducers';
 
 @Injectable()
 export class CurrencyListResolverService implements Resolve<Action> {
-  constructor(
-    private apiService: ApiService,
-    private store: Store<State>
-  ) {
-  }
+  constructor(private apiService: ApiService, private store: Store<State>) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
-
     const isStoreEmpty = (currencyList: any[]) => currencyList.length === 0;
     const isStoreNeededLazyLoading = (currencyList: any[]) => currencyList.length <= 100;
 

@@ -37,22 +37,19 @@ export class UserEffects {
   loginUser$ = this.actions$
     .pipe(
       ofType(UserActionsEnum[UserActionsEnum.LOGIN_USER]),
-      withLatestFrom(
-        this.store$.select(getUserList),
+      withLatestFrom(this.store$.select(getUserList),
         (action: UserLogin, userList: User[]) => {
           const {payload} = action;
-          const foundUser = userList.find(user => user.id === payload.id);
-
+          const foundUser = userList.find(user =>
+            user.id === payload.id
+          );
           if (!foundUser) {
             return new UserLoginFail('User is not found.');
           }
-
           if (foundUser.isPasswordCorrect(payload.password)) {
             return new UserLoginSuccess(foundUser);
           }
-
           return new UserLoginFail('Password is invalid.');
-
         }
       ),
       catchError(error => of(error))

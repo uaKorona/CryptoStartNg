@@ -20,25 +20,20 @@ const MIN_LENGTH = 5;
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
 
   tabOptions: TabOption[] = [];
   selectedTabIndex = TabIndexEnum.Login;
   userError$: Observable<string | null>;
 
-  constructor(
-    private store$: Store<State>,
-  ) {
+  constructor( private store$: Store<State> ) {
     this.tabOptions = this.getTabOptions();
     this.userError$ = this.store$.select(getUserError);
   }
 
-  ngOnInit() {
-  }
-
   onTabSubmit(payload: ITabPayload) {
-
-    const action: UserActions = (this.selectedTabIndex === TabIndexEnum.Login)
+    const action: UserActions =
+      (this.selectedTabIndex === TabIndexEnum.Login)
       ? this.getLoginAction(payload)
       : this.getRegisterAction(payload);
 

@@ -21,6 +21,8 @@ import { CustomTabComponent } from './login/custom-tab/custom-tab.component';
 import {UserEffects} from './store/user/user.effects';
 import { SettingsComponent } from './settings/settings.component';
 import { CurrencyPreviewDialogComponent } from './currency-preview-dialog/currency-preview-dialog.component';
+import {StoreDevtoolsModule} from '@ngrx/store-devtools';
+import {environment} from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,11 @@ import { CurrencyPreviewDialogComponent } from './currency-preview-dialog/curren
     AppRoutingModule,
     MyMaterialModule,
     StoreModule.forRoot(reducers, {metaReducers}),
-    EffectsModule.forRoot([CurrencyListEffects, UserEffects])
+    EffectsModule.forRoot([CurrencyListEffects, UserEffects]),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25, // Retains last 25 states
+      logOnly: environment.production, // Restrict extension to log-only mode
+    }),
   ],
   entryComponents: [
     CurrencyPreviewDialogComponent
